@@ -73,33 +73,19 @@
 			touch_vdd-supply_name = "touch_vdd";
 			gpio_tirq = <61>;
 			gpio_reset = <85>;
-			reset_l2h = <0>;
-			enable_resume_por = <1>;
-			defaults_allow = <0>;
-			default_config_id = <0>;
-			default_chip_id = <0>;
-			fw_name = "touch_chip_id_0x%02x_config_id_0x%%04x.bin";
-			i2c_words = <128>;
-			coordinate_settings = <0x4>;
-			panel_margin_xl = <0>;
+			gpio_reset_l2h = <0>;
 			lcd_x = <1080>;
-			panel_margin_xh = <0>;
-			panel_margin_yl = <0>;
 			lcd_y = <1920>;
-			panel_margin_yh = <0>;
 			num_sensor_x = <24>;
 			num_sensor_y = <40>;
-			button_code0 = <0>;
-			button_code1 = <0>;
-			button_code2 = <0>;
-			button_code3 = <0>;
-			touch_pressure_enabled = <1>;
-			touch_size_enabled = <0>;
-			touch_orientation_enabled = <0>;
-			glove_enabled = <0>;
-			report_pen_as_finger = <1>;
-			wakeup_gesture_support = <0>;
-			wakeup_gesture_timeout = <0>;
+      swap_xy = <1>;
+      reverse_x = <0>;
+      reverse_y = <0>;
+      ignore_pen = <1>;
+			report_type = <0>;
+			report_pressure = <1>;
+			report_size = <1>;
+			enable_glove = <0>;
 		};
 
 		atmel_mxt_ts@4a {
@@ -650,7 +636,7 @@
 	qcom,msm-thermal {
 		qcom,pmic-sw-mode-regs = "vdd_dig";
 	};
- 
+
 	sim_detect {
 		compatible = "sim-detect";
 		interrupt-parent = <&msmgpio>;
