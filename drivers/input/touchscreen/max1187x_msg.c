@@ -240,7 +240,7 @@ int mxm_send_command(struct max1187x_touchscreen * ts, enum mxm_command cmd)
 
 static void handle_system_status(struct max1187x_touchscreen * ts, struct mxm_system_status * status)
 {
-	if (status->value != ts->system.status)
+	//if (status->value != ts->system.status)
 		dev_info(&(ts->i2c.client->dev), "system status: 0x%04X -> 0x%04X\n",
 			ts->system.status, status->value);
 	ts->system.status = status->value;
@@ -248,7 +248,7 @@ static void handle_system_status(struct max1187x_touchscreen * ts, struct mxm_sy
 
 static void handle_power_mode(struct max1187x_touchscreen * ts, struct mxm_power_mode * pwr)
 {
-	if (pwr->value != ts->system.power_mode)
+	//if (pwr->value != ts->system.power_mode)
 		dev_info(&(ts->i2c.client->dev), "power mode: 0x%04X -> 0x%04X\n",
 			ts->system.power_mode, pwr->value);
 	ts->system.power_mode = pwr->value;

@@ -671,7 +671,7 @@ static int max1187x_suspend(struct device *dev)
   int rc;
 
 	if (!ts->is_suspended) {
-    dev_info(dev, "SUSPEND\n");
+
 		if (mxm_send_command(ts, MXM_CMD_SLEEP))
 			dev_err(dev, "Failed to set sleep mode\n");
 
@@ -684,6 +684,8 @@ static int max1187x_suspend(struct device *dev)
 
     input_mt_sync(ts->input_dev);
     input_sync(ts->input_dev);
+
+    dev_dbg(dev, "suspend end\n");
 	}
 
 	return 0;
@@ -696,7 +698,6 @@ static int max1187x_resume(struct device *dev)
 	int rc;
 
   if (ts->is_suspended) {
-    dev_info(dev, "RESUME\n");
 
 		rc = regulator_set_optimum_mode(ts->vdd_supply, MXM_VREG_LOAD_UA_HIGH);
 		usleep_range(MXM_WAIT_MIN_US, MXM_WAIT_MAX_US);
@@ -705,6 +706,8 @@ static int max1187x_resume(struct device *dev)
 
 		if (mxm_send_command(ts, MXM_CMD_AUTO_ACTIVE))
 			dev_err(dev, "Failed to wake up");
+    if (mxm_send_command(ts, MXM_CMD_RESET_SYSTEM))
+      dev_err(dev, "Failed to reset system");
     if (mxm_send_command(ts, MXM_CMD_RESET_BASELINE))
       dev_err(dev, "Failed to reset baseline");
 		if (mxm_send_command(ts, MXM_CMD_SET_TOUCH_REPORT_EXTENDED))
@@ -714,12 +717,12 @@ static int max1187x_resume(struct device *dev)
 		// else
 		//   rc = mxm_send_command(ts, MXM_CMD_DISABLE_GLOVE);
 
-	  // mxm_send_command(ts, MXM_CMD_RESET_SYSTEM);
-
     input_mt_sync(ts->input_dev);
     input_sync(ts->input_dev);
 
 		ts->is_suspended = false;
+
+    dev_dbg(dev, "resume end\n");
 	}
 
 	return 0;
