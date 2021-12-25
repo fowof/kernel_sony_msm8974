@@ -115,7 +115,7 @@ static int msm_vb2_buf_finish(struct vb2_buffer *vb)
 
 	session = msm_get_session_from_vb2q(vb->vb2_queue);
 	if (IS_ERR_OR_NULL(session))
-		return;
+		return -EINVAL;
 
 	read_lock_irqsave(&session->stream_rwlock, rl_flags);
 
@@ -384,4 +384,3 @@ int msm_vb2_request_cb(struct msm_sd_req_vb2_q *req)
 
 	return 0;
 }
-
