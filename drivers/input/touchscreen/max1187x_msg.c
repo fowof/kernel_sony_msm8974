@@ -201,6 +201,10 @@ int mxm_send_command(struct max1187x_touchscreen * ts, enum mxm_command cmd)
 			buf.value[0]    = 0;
 			buf.value[1]    = 0;
 		  break;
+		case MXM_CMD_SET_BASELINE_MODE_AUTO:
+			buf.msghdr.id   = MXM_CMD_ID_SET_BASELINE_MODE;
+			buf.value[0]    = MXM_BASELINE_MODE_AUTO;
+			break;
     default:
       dev_err(&ts->i2c.client->dev, "%s: unknown command! (0x%04X)\n",
 			__func__, cmd);
@@ -368,6 +372,8 @@ void mxm_handle_message(struct max1187x_touchscreen * ts, struct mxm_message * m
         (struct mxm_touch_info_extended *)&(msg->payload));
       break;
 		case MXM_RPT_ID_BASELINE:
+			dev_dbg(&(ts->i2c.client->dev), "baseline: 0x%04X\n",
+				msg->payload[0]);
 		  break;
 		case MXM_RPT_ID_BAD_COMMAND:
 			dev_err(&ts->i2c.client->dev,

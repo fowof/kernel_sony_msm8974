@@ -646,6 +646,12 @@ int max1187x_touchscreen_reset(struct max1187x_touchscreen * ts)
  		dev_err(dev, "sysfs_create_link error\n");
 
  	dev_info(dev, "(INIT): Done\n");
+
+  if (mxm_send_command(ts, MXM_CMD_SET_BASELINE_MODE_AUTO))
+    dev_err(dev, "Failed to set auto baseline mode");
+  if (mxm_send_command(ts, MXM_CMD_SET_TOUCH_REPORT_EXTENDED))
+    dev_err(dev, "Failed to set touch report mode");
+
  	return 0;
 }
 

@@ -108,9 +108,9 @@ struct mxm_message {
 #define MXM_TOOL_FINGER                    0x0002
 #define MXM_TOOL_GLOVE                     0x0003
 
-#define MXM_NO_BASELINE   0
-#define MXM_FIX_BASELINE  1
-#define MXM_AUTO_BASELINE 2
+#define MXM_BASELINE_MODE_NONE             0x0000
+#define MXM_BASELINE_MODE_FIXED            0x0001
+#define MXM_BASELINE_MODE_AUTO             0x0002
 
 struct mxm_power_mode {
   u16 value;
@@ -178,6 +178,7 @@ enum mxm_command {
 	MXM_CMD_RESET_BASELINE,
 	MXM_CMD_ENABLE_GLOVE,
 	MXM_CMD_DISABLE_GLOVE,
+	MXM_CMD_SET_BASELINE_MODE_AUTO,
 	MXM_CMD_MAX,
 };
 
